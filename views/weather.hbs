@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <h1>{{city}}, {{state}}</h1>
+    {{#each allDays}}
+        <h2>{{this.name}}</h2>
+        <img src={{this.icon}} style="float: left; margin-right:20px;" height="70">
+        <p>{{this.shortForecast}}<br> 
+        {{this.temperature}} {{this.temperatureUnit}} <br> 
+        {{this.windSpeed}} {{this.windDirection}} <br>
+        </p>
+    {{/each}}
+    
+</html>

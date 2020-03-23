@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<script>
+        function myFunction() {
+            //function is supposed to take the input values from the form
+            //and then forward the user to the specific link
+            console.log("hi");
+            var number = document.getElementById("number");
+            var num_facts = document.getElementById("num_facts");
+            var format = document.getElementById("format");
+            alert(parseInt(number));
+            alert(num_facts);
+            alert(format);
+            console.log("number: " + number);
+            console.log("num_facts: " + num_facts);
+            console.log("format: " + format);
+            
+        }
+            
+    </script>
+<html>
+    
+    <form>
+        What number do you want info on:
+        <input type="number" id="number" name="number"><br>
+        
+        How many facts? 
+        <input type="number" id="num_facts" name="num_facts"><br>
+        
+        Format? <br>
+        <input type="radio" name="format" value="normal" checked> Normal <br>
+        <input type="radio" name="format" value="json"> JSON<br><br>
+        
+        <input type="button" name="submit" value="Submit" onclick="myFunction();" />
+
+    </form>
+    
+</html>

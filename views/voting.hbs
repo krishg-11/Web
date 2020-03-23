@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <body>                                                                                                                                  
+        <h2>Friends</h2>
+        <div>
+            Who is your favorite Friends character?</b><br><br> 
+            <input type="radio" name="subject" value="joey" checked="true">Joey<br>
+            <input type="radio" name="subject" value="ross">Ross<br>
+            <input type="radio" name="subject" value="chandler">Chandler<br>
+            <input type="radio" name="subject" value="rachel">Rachel<br>
+            <input type="radio" name="subject" value="monica">Monica<br>
+            <input type="radio" name="subject" value="phoebe">Phoebe<br>
+            <br>         
+            <button type="button" onclick="get_from_server()" >Vote</button>
+            
+            <p id="output"></p>
+        </div>
+        
+        <script type="text/javascript">
+        function get_from_server() {
+            var choice = document.querySelector('input[name="subject"]:checked').value;  
+            fetch('https://user.tjhsst.edu/2021kganotra/votingInfo?choice=' + choice)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    update_page(data)
+            });
+        }
+        function update_page(data) {
+            var output = document.getElementById('output');
+            output.innerHTML = 'Joey: ' + data['joey'] + 
+                                '<br> Ross: ' + data['ross'] +
+                                '<br> Chandler: ' + data['chandler'] +
+                                '<br> Rachel: ' + data['rachel'] +
+                                '<br> Monica: ' + data['monica'] +
+                                '<br> Phoebe: ' + data['phoebe']
+        }
+        </script>
+    </body>
+</html
