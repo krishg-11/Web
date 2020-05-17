@@ -6,7 +6,7 @@
             What are your letters: <input type="text" name="subject"><br>
             <br>         
             <button type="button" onclick="get_from_server()" >Find Words</button>
-            <br> Note: Only placeholder output will be returned 
+            
             
             <p id="output"></p>
         </div>
@@ -34,7 +34,10 @@
                 tempWordString += "</ul><br>";
                 htmlString += tempWordString;
             }
-            output.innerHTML = htmlString;
+            if(htmlString == "")
+                output.innerHTML = "Sorry no words match those letters"
+            else
+                output.innerHTML = htmlString;
         }
         </script>
     </body>
