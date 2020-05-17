@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <body>                                                                                                                                  
+        <h1>Scrabble Word Finder</h1>
+        <div>
+            What are your letters: <input type="text" name="subject"><br>
+            <br>         
+            <button type="button" onclick="get_from_server()" >Find Words</button>
+            <br> Note: Only placeholder output will be returned 
+            
+            <p id="output"></p>
+        </div>
+        
+        <script type="text/javascript">
+        function get_from_server() {
+            var letters = document.querySelector('input[name="subject"]').value;
+            fetch('https://user.tjhsst.edu/2021kganotra/scrabbleInfo?letters=' + letters)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    update_page(data)
+            });
+        }
+        function update_page(data) {
+            var output = document.getElementById('output');
+            var htmlString = "";
+            for(var wordLen in data){
+                var tempWordString = "<h2>"+ wordLen +" letter words</h2>";
+                tempWordString += "<ul>";
+                for(var id in data[wordLen]){
+                    tempWordString += "<li>"+data[wordLen][id]+"</li>";
+                }
+                tempWordString += "</ul><br>";
+                htmlString += tempWordString;
+            }
+            output.innerHTML = htmlString;
+        }
+        </script>
+    </body>
+</html
