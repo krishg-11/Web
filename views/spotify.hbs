@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!--put scripts in header with tag async-->
+    <script type="text/javascript" src="js/clientScript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/nav_bar.css">
+    <title> Spotify Stats </title>
+</head>
+
+<body>
+    <div id="temp">
+        
+    {{#each artistList}}
+        <p>{{this}}</p>
+    {{/each}}
+        
+    </div>
+    <script>
+    function getURL() {
+        access_token = window.location.hash.split("&")[0].split("=")[1]
+        // alert("The URL of this page is: " + access_token);
+        
+        
+        var output = document.getElementById('temp');
+        var artistList = []
+        $.ajax({
+                url: 'https://api.spotify.com/v1/me/top/artists',
+                headers: {
+                  'Authorization': 'Bearer ' + access_token
+                },
+                success: function(response) {
+                // output.innerHTML = "<ol>"
+                for(var key in response.items){
+                    // output.innerHTML += response.items[key].images[0].url
+                
+                    // output.innerHTML += "<li>"
+                    // output.innerHTML += response.items[key].name
+                    // output.innerHTML += "</li>"
+                    output.innerHTML += "<img height=100 src="+response.items[key].images[0].url+">"
+                    
+                    output.innerHTML += response.items[key].name
+                    output.innerHTML += "<br>"
+                                      
+                }
+                // output.innerHTML += "</ol>"
+                
+
+                }
+            });
+    }
+    
+    </script>
+     
+    <button type="button" onclick="getURL();" id="login-button">Get Page URL</button>
+</body>
+</html>
