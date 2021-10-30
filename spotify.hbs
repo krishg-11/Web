@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!--put scripts in header with tag async-->
+    <script type="text/javascript" src="js/clientScript.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"> </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/nav_bar.css">
+    <link rel="stylesheet" type="text/css" href="css/spotify.css">
+    <link rel="icon" href="https://s2.wp.com/wp-content/themes/vip/spotify-usa/images/icons/spotify_icon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <title> Spotify Stats </title>
+</head>
+
+<body id="body" style="margin:auto; max-width: 800px; margin-top: 20px;">
+    {{!--<div>--}}
+    {{!--    <button type="button" onclick="getTopInfo('artists','long_term');" id="login-button">Get Your Top Artists</button>--}}
+    {{!--    <button type="button" onclick="getTopInfo('tracks','short_term');" id="login-button">Get Your Top Tracks</button>    --}}
+    {{!--</div>--}}
+    <div>
+        <div class="dropdown">
+          <button class="dropbtn">Find Your Favorite Artists</button>
+          <div class="dropdown-content">
+            <a onclick="getTopInfo('artists','short_term');">Last Month</a>
+            <a onclick="getTopInfo('artists','medium_term');">Last 6 Months</a>
+            <a onclick="getTopInfo('artists','long_term');">All-time</a>
+          </div>
+        </div>
+        
+        <div class="dropdown">
+          <button class="dropbtn">Find Your Favorite Songs</button>
+          <div class="dropdown-content">
+            <a onclick="getTopInfo('tracks','short_term');">Last Month</a>
+            <a onclick="getTopInfo('tracks','medium_term');">Last 6 Months</a>
+            <a onclick="getTopInfo('tracks','long_term');">All-time</a>
+          </div>
+        </div>
+    </div>
+    
+    <br>
+    <div class="row">
+      <div class="column" id="col1"></div>
+      <div class="column" id="col2"></div>
+    </div>
+    
+    <script>
+    function getTopInfo(type,range) {
+        access_token = window.location.hash.split("&")[0].split("=")[1]
+        // alert("The URL of this page is: " + access_token);
+        document.getElementById('col1').innerHTML = "";
+        document.getElementById('col2').innerHTML = "";
+        
+        var output = document.getElementById('col1');
+        var artistList = []
+        $.ajax({
+                url: 'https://api.spotify.com/v1/me/top/'+type+"?time_range="+range,
+                headers: {
+                  'Authorization': 'Bearer ' + access_token
+                },
+                success: function(response) {
+                    var count = 0
+                    for(var key in response.items){
+                        count++;
+                        if(count > Object.keys(response.items).length/2){
+                            output = document.getElementById('col2');
+                        }
+                        output.innerHTML += count+"."
+                        if(type=="artists"){
+                            var imageURL = response.items[key].images[0].url
+                        }
+                        else{
+                            var imageURL = response.items[key].album.images[0].url
+                        }
+                        output.innerHTML += "<img width=100 src="+imageURL+">"
+                        
+                        output.innerHTML += response.items[key].name
+                        output.innerHTML += "<br>"
+                                      
+                }
+                
+
+                }
+            });
+    }
+    $(function(){
+        $('.dropdown').hover(function() {
+            $(this).addClass('open');
+        },
+        function() {
+            $(this).removeClass('open');
+        });
+    });
+    
+    </script>
+</body>
+</html>
