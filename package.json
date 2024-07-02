@@ -1,0 +1,16 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "Repository for work in Web App Development class. This is a functioning dynamic site developed using node.js and hosted by TJ Director. \r Available at https://user.tjhsst.edu/2021kganotra/",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "hbs": "^4.2.0"
+  }
+}
